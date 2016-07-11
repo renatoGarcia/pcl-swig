@@ -1,0 +1,4 @@
+*~
+test/.cache/
+test/__pycache__/
+build/
