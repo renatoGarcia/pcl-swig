@@ -10,6 +10,7 @@
  */
 
 %include <stdint.i>
+%include <std_string.i>
 
 #define EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 #define PCL_EXPORTS
@@ -22,6 +23,17 @@
 %{
     #include <pcl/point_types.h>
 %}
+
+%define %_extend__str__(class_name)
+    %extend pcl::class_name {
+        std::string __str__()
+        {
+            std::ostringstream s;
+            s << *$self;
+            return s.str();
+        }
+    }
+%enddef
 
 %define %_extend_attribute(class_name, attr_type, attr_name)
     %extend pcl::class_name {
@@ -68,6 +80,58 @@
 %enddef
 
 //TODO: Extend the other attributes
+
+%_extend__str__(PointXYZ)
+%_extend__str__(RGB)
+%_extend__str__(Intensity)
+%_extend__str__(Intensity8u)
+/* %_extend__str__(Intensity32u) */ // Intensity32u symbol not defined when loading library.
+%_extend__str__(PointXYZI)
+%_extend__str__(PointXYZL)
+%_extend__str__(Label)
+%_extend__str__(PointXYZRGBA)
+%_extend__str__(PointXYZRGB)
+%_extend__str__(PointXYZRGBL)
+%_extend__str__(PointXYZHSV)
+%_extend__str__(PointXY)
+%_extend__str__(PointUV)
+%_extend__str__(InterestPoint)
+%_extend__str__(Normal)
+%_extend__str__(Axis)
+%_extend__str__(PointNormal)
+%_extend__str__(PointXYZRGBNormal)
+%_extend__str__(PointXYZINormal)
+%_extend__str__(PointXYZLNormal)
+%_extend__str__(PointWithRange)
+%_extend__str__(PointWithViewpoint)
+%_extend__str__(MomentInvariants)
+%_extend__str__(PrincipalRadiiRSD)
+%_extend__str__(Boundary)
+%_extend__str__(PrincipalCurvatures)
+%_extend__str__(SHOT352)
+%_extend__str__(SHOT1344)
+%_extend__str__(ReferenceFrame)
+%_extend__str__(ShapeContext1980)
+%_extend__str__(UniqueShapeContext1960)
+%_extend__str__(PFHSignature125)
+%_extend__str__(PFHRGBSignature250)
+%_extend__str__(PPFSignature)
+%_extend__str__(CPPFSignature)
+%_extend__str__(PPFRGBSignature)
+%_extend__str__(NormalBasedSignature12)
+%_extend__str__(FPFHSignature33)
+%_extend__str__(VFHSignature308)
+/* %_extend__str__(GRSDSignature21) */ // GRSDSignature21symbol not defined when loading library.
+%_extend__str__(ESFSignature640)
+%_extend__str__(GFPFHSignature16)
+%_extend__str__(BRISKSignature512)
+%_extend__str__(Narf36)
+%_extend__str__(BorderDescription)
+%_extend__str__(IntensityGradient)
+%_extend__str__(Histogram)
+%_extend__str__(PointWithScale)
+%_extend__str__(PointSurfel)
+%_extend__str__(PointDEM)
 
 %_extend_BGRA(RGB)
 %_extend_BGRA(PointXYZRGBA)

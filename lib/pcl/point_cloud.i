@@ -13,6 +13,7 @@
 %include <pcl/point_types.i>
 
 %include <std_vector.i>
+%include <std_string.i>
 
 
 /* %pcl_point_cloud_instantiate(type, type_alias, np_basic_type)
@@ -69,6 +70,13 @@
     int _get_dim()
     {
         return sizeof($parentclassname::PointType)/sizeof(float);
+    }
+
+    std::string __str__()
+    {
+        std::ostringstream s;
+        s << *$self;
+        return s.str();
     }
 
     %pythoncode
