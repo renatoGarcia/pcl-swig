@@ -9,4 +9,5 @@
  * except according to the terms contained in the LICENSE file.
  */
 
+%include <pcl/point_cloud.i>
 %include <pcl/point_types.i>

@@ -16,26 +16,20 @@
 %include <std_string.i>
 
 
-/* %pcl_point_cloud_instantiate(type, type_alias, np_basic_type)
+/* %pcl_point_cloud_instantiate(type, type_alias)
  *
- *  Generete the wrapper code to a specific cv::Mat_<> template instantiation.
+ *  Generete the wrapper code to a specific pcl::PointCloud<> template instantiation.
  *
- *  type - The cv::Mat_<> value type.
- *  type_alias - The value type alias used at the cv::Mat_<> typedefs.
- *  np_basic_type - The character code[0] describing the numpy array item type.
+ *  type - The PointCloud's PointT value type.
+ *  type_alias - An alias to the instantiated PointCloud type.
  *
- *  For instance, the C++ type cv::Mat_<cv::Vec3b> would be instantiated with:
+ *  For instance, the C++ type pcl::PointCloud<pcl::PointXYZ> would be instantiated with:
  *
- *      %cv_mat__instantiate(Vec3b, 3b, f)
+ *      %pcl_point_cloud_instantiate(PointXYZ, XYZ)
  *
- *  which would generate a Python wrapper class Mat3b.
- *
- *  [0]: http://docs.scipy.org/doc/numpy/reference/arrays.interface.html#__array_interface__
+ *  which would generate a Python wrapper class PointCloudXYZ.
  */
 %define %pcl_point_cloud_instantiate(type, type_alias)
-
-    /* %cv_numpy_add_type(type, np_basic_type) */
-
     #if !_PCL_POINT_CLOUD__##type##_INSTANTIATED_
         namespace pcl
         {
