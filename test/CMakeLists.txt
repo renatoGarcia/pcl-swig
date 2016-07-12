@@ -50,3 +50,4 @@ foreach(AAA IN LISTS _include_directories)
 endforeach()
 
 add_test_rules(point_types)
+add_test_rules(point_cloud)
