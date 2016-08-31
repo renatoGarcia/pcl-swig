@@ -83,6 +83,11 @@
         def __getattribute__(self, name):
             if name == "__array_interface__":
                 shape = (self.size(), self._get_dim())
+                # TODO: Do use default stride? The resulting ndarray of an PointXYZRGB
+                #       cloud with two points will have a shape of (2, 8) instead of
+                #       (2, 5) 1-X 1-Y 1-Z 1-w 1-rgba. The other 3 bytes/items will be
+                #       only padding trash. The behavior of converted Eigen matrix is the
+                #       same... Bug on PCL?
                 return {"shape": shape,
                         "typestr": self._typestr(),
                         "data": (self._get_data_ptr(), False)}
