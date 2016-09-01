@@ -85,6 +85,27 @@ class TestPointCloudXYZRGB:
             assert compareXYZ(cloud.at(i), r.at(i))
             assert compareRGBA(cloud.at(i), r.at(i))
 
+    def test_return_ptr(self):
+        r = point_cloud.PointCloudXYZRGB()
+        p0 = point_cloud.PointXYZRGB()
+        p1 = point_cloud.PointXYZRGB()
+        p2 = point_cloud.PointXYZRGB()
+
+        p0.x, p0.y, p0.z, p0.r, p0.g, p0.b = 0.714, 0.770, 0.314, 150, 185, 205
+        p1.x, p1.y, p1.z, p1.r, p1.g, p1.b = 0.777, 0.384, 0.542, 239,  32, 190
+        p2.x, p2.y, p2.z, p2.r, p2.g, p2.b = 0.510, 0.564, 0.137, 238,  63,  95
+
+        r.push_back(p0)
+        r.push_back(p1)
+        r.push_back(p2)
+
+        cloud = point_cloud.return_PointCloudXYZRGB_Ptr()
+        assert isinstance(cloud, point_cloud.PointCloudXYZRGB)
+        assert cloud.size() == r.size()
+        for i in range(cloud.size()):
+            assert compareXYZ(cloud.at(i), r.at(i))
+            assert compareRGBA(cloud.at(i), r.at(i))
+
     def test_receive(self):
         cloud = point_cloud.PointCloudXYZRGB()
         p0 = point_cloud.PointXYZRGB()
@@ -100,6 +121,22 @@ class TestPointCloudXYZRGB:
         cloud.push_back(p2)
 
         assert point_cloud.receive_PointCloudXYZRGB(cloud)
+
+    def test_receive_ptr(self):
+        cloud = point_cloud.PointCloudXYZRGB()
+        p0 = point_cloud.PointXYZRGB()
+        p1 = point_cloud.PointXYZRGB()
+        p2 = point_cloud.PointXYZRGB()
+
+        p0.x, p0.y, p0.z, p0.r, p0.g, p0.b = 0.176, 0.023, 0.972,  48, 242, 184
+        p1.x, p1.y, p1.z, p1.r, p1.g, p1.b = 0.421, 0.759, 0.389,  38,  92,  51
+        p2.x, p2.y, p2.z, p2.r, p2.g, p2.b = 0.518, 0.898, 0.609, 253,  13, 150
+
+        cloud.push_back(p0)
+        cloud.push_back(p1)
+        cloud.push_back(p2)
+
+        assert point_cloud.receive_PointCloudXYZRGB_Ptr(cloud)
 
     def test_asarray(self):
         cloud = point_cloud.PointCloudXYZRGB()

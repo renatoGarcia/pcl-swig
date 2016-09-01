@@ -46,6 +46,7 @@ bool receive_PointCloudXYZ(PointCloudXYZ const& cloud)
 
 // -------------------------------------------------- PointCloudXYZRGB
 typedef pcl::PointCloud<pcl::PointXYZRGB> PointCloudXYZRGB;
+
 PointCloudXYZRGB return_PointCloudXYZRGB()
 {
     PointCloudXYZRGB cloud;
@@ -54,6 +55,18 @@ PointCloudXYZRGB return_PointCloudXYZRGB()
     p1.x = 0.777; p1.y = 0.660; p1.z = 0.374; p1.r = 183; p1.g = 190; p1.b = 133;
     p2.x = 0.038; p2.y = 0.617; p2.z = 0.378; p2.r =  13; p2.g =   9; p2.b = 113;
     cloud.push_back(p0); cloud.push_back(p1); cloud.push_back(p2);
+
+    return cloud;
+}
+
+PointCloudXYZRGB::Ptr return_PointCloudXYZRGB_Ptr()
+{
+    PointCloudXYZRGB::Ptr cloud(new PointCloudXYZRGB);
+    pcl::PointXYZRGB p0, p1, p2;
+    p0.x = 0.714; p0.y = 0.770; p0.z = 0.314; p0.r = 150; p0.g = 185; p0.b = 205;
+    p1.x = 0.777; p1.y = 0.384; p1.z = 0.542; p1.r = 239; p1.g =  32; p1.b = 190;
+    p2.x = 0.510; p2.y = 0.564; p2.z = 0.137; p2.r = 238; p2.g =  63; p2.b =  95;
+    cloud->push_back(p0); cloud->push_back(p1); cloud->push_back(p2);
 
     return cloud;
 }
@@ -73,6 +86,27 @@ bool receive_PointCloudXYZRGB(PointCloudXYZRGB const& cloud)
     for (int i = 0; i < r.size(); ++i)
     {
         if (!compareRGBA(cloud.at(i), r.at(i)))
+            return false;
+    }
+
+    return true;
+}
+
+bool receive_PointCloudXYZRGB_Ptr(PointCloudXYZRGB::Ptr cloud)
+{
+    PointCloudXYZRGB r;
+    pcl::PointXYZRGB p0, p1, p2;
+    p0.x = 0.176; p0.y = 0.023; p0.z = 0.972; p0.r =  48; p0.g = 242; p0.b = 184;
+    p1.x = 0.421; p1.y = 0.759; p1.z = 0.389; p1.r =  38; p1.g =  92; p1.b =  51;
+    p2.x = 0.518; p2.y = 0.898; p2.z = 0.609; p2.r = 253; p2.g =  13; p2.b = 150;
+    r.push_back(p0); r.push_back(p1); r.push_back(p2);
+
+    if (cloud->size() != r.size())
+        return false;
+
+    for (int i = 0; i < r.size(); ++i)
+    {
+        if (!compareRGBA(cloud->at(i), r.at(i)))
             return false;
     }
 

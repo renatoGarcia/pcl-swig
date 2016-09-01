@@ -12,6 +12,7 @@
 %include <pcl/_numpy.i>
 %include <pcl/point_types.i>
 
+%include <boost_shared_ptr.i>
 %include <std_vector.i>
 %include <std_string.i>
 
@@ -31,6 +32,7 @@
  */
 %define %pcl_point_cloud_instantiate(type, type_alias)
     #if !_PCL_POINT_CLOUD__##type##_INSTANTIATED_
+        %shared_ptr(pcl::PointCloud< pcl::##type >)
         namespace pcl
         {
             %template(_PointCloud_##type) PointCloud< type >;
